@@ -39,6 +39,8 @@ export class AuthController {
 
       const { user, accessToken, refreshToken } = await this.authService.login(email, password);
 
+      const { email: userEmail, id } = user;
+
       const tokenAge = 7 * 24 * 60 * 60 * 1000; // 7 days
 
       res.cookie("refreshToken", refreshToken, {
@@ -49,7 +51,7 @@ export class AuthController {
 
       res.status(200).json({
         success: true,
-        data: { user, accessToken },
+        data: { user: { email: userEmail, id }, accessToken },
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -80,9 +82,20 @@ export class AuthController {
   async logout(req: Request, res: Response) {
     const token = req.cookies["refreshToken"];
 
-    await this.authService.logout(token);
+    if (!token) {
+      return res.status(400).json({ success: false, message: "No refresh token provided" });
+    }
 
-    res.clearCookie("refreshToken");
-    res.json({ message: "Logged out successfully" });
+    try {
+      await this.authService.logout(token);
+
+      res.clearCookie("refreshToken");
+      res.json({ message: "Logged out successfully" });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(400).json({ success: false, message: error.message });
+      }
+      return res.status(400).json({ success: false, message: "Invalid refresh token" });
+    }
   }
 }
