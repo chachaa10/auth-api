@@ -21,7 +21,7 @@ export class AuthController {
       res.status(201).json({ success: true, message: "User registered successfully" });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        return res.status(500).json({ success: false, message: error.message });
+        return res.status(400).json({ success: false, message: error.message });
       }
       return res.status(500).json({ success: false, message: "Internal server error" });
     }
@@ -55,7 +55,7 @@ export class AuthController {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        return res.status(500).json({ success: false, message: error.message });
+        return res.status(400).json({ success: false, message: error.message });
       }
       return res.status(500).json({ success: false, message: "Internal server error" });
     }
@@ -74,7 +74,7 @@ export class AuthController {
       res.status(200).json(accessToken);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        return res.status(500).json({ success: false, message: error.message });
+        return res.status(400).json({ success: false, message: error.message });
       }
       return res.status(500).json({ success: false, message: "Internal server error" });
     }
@@ -95,7 +95,7 @@ export class AuthController {
       if (error instanceof Error) {
         return res.status(400).json({ success: false, message: error.message });
       }
-      return res.status(400).json({ success: false, message: "Invalid refresh token" });
+      return res.status(500).json({ success: false, message: "Internal server error" });
     }
   }
 }
