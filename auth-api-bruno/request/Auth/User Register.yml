@@ -1,14 +1,18 @@
 info:
-  name: User Refresh
+  name: User Register
   type: http
-  seq: 4
+  seq: 1
 
 http:
   method: POST
-  url: "{{url}}/auth/refresh"
+  url: "{{url}}/auth/register"
   body:
     type: json
-    data: ""
+    data: |-
+      {
+        "email": "test@test.com",
+        "password": "Qwert1234"
+      }
   auth: inherit
 
 settings:
