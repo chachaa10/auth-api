@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: mydatabase
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: localhost
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+volumes:
+  pgdata:
+    driver: local

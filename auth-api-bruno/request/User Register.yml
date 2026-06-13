@@ -1,0 +1,22 @@
+info:
+  name: User Register
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{url}}/auth/register"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "test@test.com",
+        "password": "asdfsaasdffdasds1afdsFa"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

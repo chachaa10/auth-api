@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1781339914363,
+      "tag": "0000_common_puppet_master",
+      "breakpoints": true
+    }
+  ]
+}
